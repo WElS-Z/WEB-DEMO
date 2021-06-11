@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 链表
+        function Node(value) {
+            this.value = value;
+            this.next = null;
+        }
+        /**
+         * 遍历输出链表
+        */
+        Node.prototype.print = function () {
+            // var root = this;
+            // while (root) {
+            //     console.log(root.value);
+            //     root = root.next;
+            // }
+
+            // 分治法（重复当前步骤）
+            console.log(this.value);
+            if (this.next) {
+                this.next.print();
+            }
+        }
+
+        /**
+         * 输出节点数量
+        */
+        Node.prototype.count = function () {
+            // var root = this;
+            // while (root.next) {
+            //     ++this.num;
+            //     root = root.next;
+            // }
+            // console.log(this.num)
+
+            if (!this.next) {
+                return 1;
+            } else {
+                return 1 + this.next.count();
+            }
+        };
+        /**
+         * 通过下标输出指定链表
+         * */
+        Node.prototype.getNode = function (index) {
+            index = index || 0;
+            if (index === 0) {
+                return this.value;
+            } else
+                return this.next && this.next.getNode(--index);
+        }
+
+        /**
+         * 通过下标设置链表的数据
+         * */
+        Node.prototype.setValue = function (index, value) {
+            index = index || 0;
+            if (index === 0) {
+                return this.value = value;
+            } else
+                return this.next && this.next.setValue(--index, value);
+        }
+
+        /**
+         * 通过下标向链表插入数据
+        */
+        Node.prototype.insertNode = function (newNodeValue) {
+            newNodeValue.next = this.next;
+            this.next = newNodeValue;
+        }
+
+        var a = new Node('a');
+        var b = new Node('b');
+        var c = new Node('c');
+        a.next = b;
+        b.next = c;
+        console.log(a, b, c);
+
+    </script>
+</body>
+
+</html>
