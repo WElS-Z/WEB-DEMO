@@ -14,6 +14,7 @@
         function Node(value) {
             this.value = value;
             this.next = null;
+            this.up = null;
         }
         Node.prototype.lock = true;
         /**
@@ -93,14 +94,20 @@
         /**
          * 链表倒序
         */
-        // Node.prototype.reverseNode = function () {
-        //     if (this.next == 'null') {
-        //         this.__proto__.lock = false;
-        //         return this;
-        //     } if (this.lock) {
-        //         return this.next.reverseNode().next = this;
-        //     }
-        // }
+        Node.prototype.reverseNode = function () {
+            if (!this.next) {
+                return reverseUp.call(this);
+            }
+            if (this.next) {
+                this.next.up = this;
+            }
+            return this.next.reverseNode();
+        }
+        function reverseUp() {
+            console.log(this.value);
+            if (!this.up) return
+            return reverseUp.call(this.up);
+        }
         var a = new Node('a');
         var b = new Node('b');
         var c = new Node('c');
@@ -110,8 +117,6 @@
         b.next = c;
         c.next = d;
         d.next = e;
-        // console.log(a, b, c);
-        // c.removeNode(e);
 
 
     </script>
