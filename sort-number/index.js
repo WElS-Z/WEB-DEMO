@@ -97,6 +97,7 @@ function selectSort(origin) {
  * @param {array} origin 
  */
 function bubblingSort(origin) {
+    //循环数组 找到最大的一位将最大的一位
     var len,
         timer,
         index,
