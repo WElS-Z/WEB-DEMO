@@ -202,7 +202,5 @@ function quickSort(target) {
 // var myArr = [6, 7, 4, 3, 1, 2, 9, 8, 5];
 console.log(arr);
 quickSort(arr);
-
-
 console.log(arr);
 
