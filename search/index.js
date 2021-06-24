@@ -66,3 +66,5 @@ function interpolationSearch(origin, target) {
     }
     return -1;
 }
+
+
