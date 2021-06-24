@@ -425,8 +425,3 @@ function loadScript(url, callback) {
     script.src = url;
     document.head.appendChild(script);
 }
-
-
-
-
-
