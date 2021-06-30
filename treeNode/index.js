@@ -122,6 +122,15 @@ function LRD(target) {
 }
 
 
+// 根据DLR & LDR 推断 出树形结构详细解
+// abcdef    cbdafe  -1
+// a bcd ef  cbd a fe  -1
+// b cd ef  c b d fe  -1 
+// c d ef   c d fe  -1
+// d ef d fe   -1
+// e f f e   -1
+// f f   -1
+// null null 0
 /**
  * 根据前序遍历（DLR）和中序遍历（LDR）输出树形结构（二叉树）
  * @param {String} dlr 前序遍历
@@ -129,23 +138,33 @@ function LRD(target) {
  * @returns {Object} 返回值为树形结构根节点
  */
 function getTree(dlr, ldr) {
-    dlr = typeof (dlr) === 'string' ? dlr.split('') : dlr;
-    ldr = typeof (ldr) === 'string' ? ldr.split('') : ldr;
-    var dlrLen = dlr.length,
-        ldrLen = ldr.length;
-    if (!dlr || !ldr || dlrLen !== ldrLen) return;
-    for (var i = 0; i < dlrLen; ++i) {
-        if (ldr[i] === dlr[0]) {
-            var node = new Node(dlr[0]);
-            node.left = getTree(dlr.slice(1, i + 1), ldr.slice(0, i));
-            node.right = getTree(dlr.slice(i + 1, dlrLen), ldr.slice(i + 1, ldrLen));
-            return node;
-        }
-    }
+    if (!dlr || !ldr || dlr.length !== ldr.length) return null;
+    // 分割字符串为数组
+    dlr = dlr.split('');
+    ldr = ldr.split('');
+    // 创建树
+    var node = new Node(dlr[0]);
+    // 查找根节点在数组中的位置
+    var index = ldr.indexOf(dlr[0]);
+    // 得到左子树
+    var leftDLR = dlr.slice(1, index + 1).join('');//左DLR
+    var leftLDR = ldr.slice(0, index).join('');//左LDR
+    node.left = getTree(leftDLR, leftLDR);
+    // 得到右子树
+    var rightDLR = dlr.slice(index + 1).join('');//右DLR
+    var rightLDR = ldr.slice(index + 1).join('');//右LDR
+    node.right = getTree(rightDLR, rightLDR);
+    return node
 }
-var r = getTree('abcedfg', 'ecbdagf');
-// 根据DLR & LDR 推断 出树形结构详细解
-// abcdef    cbdafe  -1
-// a bcd ef  cbd a fe  -1
-// b cd ef  c b d fe  -1 
-// c d ef   c d fe  -1
+var newNode = getTree('abcedfg', 'ecbdagf');
+
+/**
+ * 查询树的最大深度
+ * @param {*} target  目标树
+ * @returns {Number}  返回值为数子
+ */
+
+function getLen(target) {
+    if (!target) return 0;
+    return Math.max(getLen(target.left), getLen(target.right)) + 1;
+}
