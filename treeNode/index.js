@@ -53,11 +53,10 @@ var e = new Node('e');
 var f = new Node('f');
 var g = new Node('g');
 a.left = b;
-a.right = f;
 b.left = c;
+a.right = e;
 b.right = d;
-c.left = e;
-f.left = g;
+e.left = f;
 
 //DLR
 // /**
@@ -162,9 +161,39 @@ var newNode = getTree('abcedfg', 'ecbdagf');
  * 查询树的最大深度
  * @param {*} target  目标树
  * @returns {Number}  返回值为数子
+ * @returns {Number}  数值
  */
 
 function getLen(target) {
     if (!target) return 0;
     return Math.max(getLen(target.left), getLen(target.right)) + 1;
+}
+
+/**
+ * 深度优先查询
+ * @param {*} origin 二叉树
+ * @param {*} target 查询目标
+ * @returns {Number} 数值
+ */
+function depthSearch(origin, target) {
+    if (!origin) return -1;
+    if (origin.value === target) return 1;
+    return depthSearch(origin.left, target) || depthSearch(origin.right, target)
+}
+
+/**
+ * 广度优先
+ * @param {*} arr 二叉树数组
+ * @param {*} target 目标
+ * @returns  数值 
+ */
+function BreadthSearch(arr, target) {
+    var arrNum = [];
+    if (arr.length === 0) return -1;
+    for (var i = 0; i < arr.length; ++i) {
+        if (arr[i].value === target) return 1;
+        if (arr[i].left) arrNum.push(arr[i].left);
+        if (arr[i].right) arrNum.push(arr[i].right);
+    }
+    return BreadthSearch(arrNum, target)
 }
