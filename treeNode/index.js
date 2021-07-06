@@ -197,3 +197,41 @@ function BreadthSearch(arr, target) {
     }
     return BreadthSearch(arrNum, target)
 }
+
+/**
+ * 比较两颗二叉树
+ * @param {Object} origin 比较目标树
+ * @param {Object} target 需要比较的树
+ * @returns {Object} 返回值为对象
+ * 
+ * 4种情况
+ * 1. A有节点 B无节点（删除）
+ * 2. A无节点 B有节点（新增）
+ * 3. A有节点 B有节点 值不相同（修改）
+ * 4. A有节点 B有节点 值相同 
+ */
+function compareTree(origin, target) {
+    var arr = [];
+    if (!origin && !target) return [];
+    if (!origin && target) {
+        arr.push({
+            type: 'newNode',
+            oldNode: origin,
+            newNode: target
+        });
+    } else if (origin && !target) {
+        arr.push({
+            type: 'removeNode',
+            oldNode: origin,
+            newNode: target
+        });
+    } else if (origin.value !== target.value) {
+        arr.push({
+            type: 'changeNode',
+            oldNode: origin,
+            newNode: target
+        });
+        arr = arr.concat(compareTree(origin.left, target.left)).concat(compareTree(origin.right, target.right));
+    } else arr = arr.concat(compareTree(origin.left, target.left)).concat(compareTree(origin.right, target.right));
+    return arr
+}
