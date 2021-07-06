@@ -151,9 +151,7 @@ Array.prototype.unique = function () {
 String.prototype.strByte = function () {
     var numBit = this.length;
     for (var i = 0; i < this.length; i++) {
-        if (this.charCodeAt(i) > 255) {
-            numBit++;
-        }
+        if (this.charCodeAt(i) > 255) numBit++;
     }
     return numBit
 }
@@ -239,9 +237,7 @@ Element.prototype.myChildren = function () {
     var ele = this.childNodes,
         arr = [];
     for (var prop in ele) {
-        if (ele[prop].nodeType === 1) {
-            arr.push(ele[prop])
-        }
+        if (ele[prop].nodeType === 1) arr.push(ele[prop]);
     }
     return arr
 }
@@ -349,11 +345,7 @@ function addEvent(ele, type, handle) {
  * @param {*} event 事件对象
  */
 function stopBubble(event) {
-    if (event.stopPropagation) {
-        event.stopPropagation();
-    } else {
-        event.cancelbubble = true;
-    }
+    event.stopPropagation ? event.stopPropagation() : event.cancelbubble = true;
 }
 
 /**
@@ -361,11 +353,7 @@ function stopBubble(event) {
  * @param {*} event 事件对象
  */
 function cancelHandler(event) {
-    if (event.preventDefault) {
-        event.preventDefault();
-    } else {
-        event.returnValue = false;
-    }
+    event.preventDefault ? event.preventDefault() : event.returnValue = false;
 }
 
 /**
@@ -413,9 +401,7 @@ function loadScript(url, callback) {
     script.type = 'text/javascript';
     if (script.readyState) {
         script.onreadystatechange = function () {
-            if (script.readyState == "complete" || script.readyState == "loaded") {
-                callback();
-            }
+            if (script.readyState == "complete" || script.readyState == "loaded") callback();
         }
     } else {
         script.onload = function () {
