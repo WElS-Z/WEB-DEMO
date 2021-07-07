@@ -27,13 +27,13 @@ f.neighbors = [e, a];
  * @param {Array} history 记录
  * @returns {Boolean} 返回值为布尔值
  */
-function deepSearch(node, value, history) {
+function deepFirstSearch(node, value, history) {
     history = history || [];//记录
     if (history.includes(node)) return -1;//找不到
     if (node.value === value) return 1; //找到了
     history.push(node);//记录
     for (var i = 0; i < node.neighbors.length; ++i) {
-        if (deepSearch(node.neighbors[i], value, history) === 1) return 1;//找到了
+        if (deepFirstSearch(node.neighbors[i], value, history) === 1) return 1;//找到了
     }
     return -1 //全部都没找到
 }
@@ -45,7 +45,7 @@ function deepSearch(node, value, history) {
  * @param {Array} history 记录
  * @returns {number} 返回值 1 || -1 
  */
-function breadthSearch(nodes, value, history) {
+function breadthFirstSearch(nodes, value, history) {
     history = history || [];//记录
     nodes.forEach((This, index) => {//去重
         if (history.includes(This)) nodes.splice(index, 1);
@@ -60,5 +60,5 @@ function breadthSearch(nodes, value, history) {
             if (!history.includes(index) && !nextNodes.includes(index)) nextNodes.push(index);
         })
     }
-    return breadthSearch(nextNodes, value, history);//继续下一次
+    return breadthFirstSearch(nextNodes, value, history);//继续下一次
 }
