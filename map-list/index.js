@@ -18,6 +18,7 @@ b.neighbors = [a, c];
 c.neighbors = [b, d];
 d.neighbors = [c, e];
 e.neighbors = [d, f, a];
+f.neighbors = [e, a];
 
 /**
  * 深度查询
@@ -40,22 +41,20 @@ function deepSearch(origin, value, history) {
 
 /**
  * 广度搜索
- * @param {Array} origin 图
+ * @param {Array} nodes 图集
  * @param {String} value 目标值
  * @param {Array} history 记录
  * @returns 返回值
  */
-function breadthSearch(origin, value, history) {
+function breadthSearch(nodes, value, history) {
     history = history || [];//记录
-    var ArrNum = [];
-    if (!origin.length) return -1;//找不到
-    for (var i = 0; i < origin.length; ++i) {
-        if (origin[i].value === value) return 1; //找到了
-        if (history.includes(origin[i])) continue; //记录里有了
-        history.push(origin[i]);//记录
-        for (var j = 0; j < origin[i].neighbors.length; ++j) {//看邻居有没有
-            ArrNum.push(origin[i].neighbors[j]);
-        }
+    var nextNodes = [];//下一个要搜索的图集
+    if (!nodes.length) return -1;//找不到
+    for (var i = 0; i < nodes.length; ++i) {
+        if (history.includes(nodes[i])) continue; //记录里有了，跳过
+        if (nodes[i].value === value) return 1; //找到了,退出
+        history.push(nodes[i]);//没找到，记录
+        nextNodes = nextNodes.concat(nodes[i].neighbors);//看邻居有没有
     }
-    return breadthSearch(ArrNum, value, history);
+    return breadthSearch(nextNodes, value, history);
 }
