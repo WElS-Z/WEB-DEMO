@@ -22,18 +22,18 @@ f.neighbors = [e, a];
 
 /**
  * 深度查询
- * @param {Object} origin 图
+ * @param {Object} node 图
  * @param {String} value 目标值
  * @param {Array} history 记录
  * @returns {Boolean} 返回值为布尔值
  */
-function deepSearch(origin, value, history) {
+function deepSearch(node, value, history) {
     history = history || [];//记录
-    if (history.includes(origin)) return -1;//找不到
-    if (origin.value === value) return 1; //找到了
-    history.push(origin);//记录
-    for (var i = 0; i < origin.neighbors.length; ++i) {
-        if (deepSearch(origin.neighbors[i], value, history) === 1) return 1;//找到了
+    if (history.includes(node)) return -1;//找不到
+    if (node.value === value) return 1; //找到了
+    history.push(node);//记录
+    for (var i = 0; i < node.neighbors.length; ++i) {
+        if (deepSearch(node.neighbors[i], value, history) === 1) return 1;//找到了
     }
     return -1 //全部都没找到
 }
