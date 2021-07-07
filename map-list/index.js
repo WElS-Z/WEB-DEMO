@@ -28,13 +28,12 @@ f.neighbors = [e, a];
  * @returns {Boolean} 返回值为布尔值
  */
 function deepSearch(origin, value, history) {
-    history = history || [];//未传入值或搜索的记录
+    history = history || [];//记录
     if (history.includes(origin)) return -1;//找不到
     if (origin.value === value) return 1; //找到了
     history.push(origin);//记录
     for (var i = 0; i < origin.neighbors.length; ++i) {
-        //找到了
-        if (deepSearch(origin.neighbors[i], value, history) === 1) return 1;
+        if (deepSearch(origin.neighbors[i], value, history) === 1) return 1;//找到了
     }
     return -1 //全部都没找到
 }
@@ -44,7 +43,7 @@ function deepSearch(origin, value, history) {
  * @param {Array} nodes 图集
  * @param {String} value 目标值
  * @param {Array} history 记录
- * @returns 返回值
+ * @returns {number} 返回值 1 || -1 
  */
 function breadthSearch(nodes, value, history) {
     history = history || [];//记录
