@@ -48,13 +48,18 @@ function deepSearch(origin, value, history) {
  */
 function breadthSearch(nodes, value, history) {
     history = history || [];//记录
+    nodes.forEach((This, index) => {//去重
+        if (history.includes(This)) nodes.splice(index, 1);
+    });
     var nextNodes = [];//下一个要搜索的图集
     if (!nodes.length) return -1;//找不到
     for (var i = 0; i < nodes.length; ++i) {
         if (history.includes(nodes[i])) continue; //记录里有了，跳过
         if (nodes[i].value === value) return 1; //找到了,退出
         history.push(nodes[i]);//没找到，记录
-        nextNodes = nextNodes.concat(nodes[i].neighbors);//看邻居有没有
+        nodes[i].neighbors.forEach((index) => {//搜索邻居
+            if (!history.includes(index) && !nextNodes.includes(index)) nextNodes.push(index);
+        })
     }
-    return breadthSearch(nextNodes, value, history);
+    return breadthSearch(nextNodes, value, history);//继续下一次
 }
