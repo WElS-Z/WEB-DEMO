@@ -187,7 +187,7 @@ function depthSearch(origin, target) {
  * @param {*} target 目标
  * @returns  数值 
  */
-function BreadthSearch(arr, target) {
+function breadthSearch(arr, target) {
     var arrNum = [];
     if (arr.length === 0) return -1;
     for (var i = 0; i < arr.length; ++i) {
@@ -195,7 +195,7 @@ function BreadthSearch(arr, target) {
         if (arr[i].left) arrNum.push(arr[i].left);
         if (arr[i].right) arrNum.push(arr[i].right);
     }
-    return BreadthSearch(arrNum, target)
+    return breadthSearch(arrNum, target)
 }
 
 /**

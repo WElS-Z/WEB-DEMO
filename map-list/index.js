@@ -22,18 +22,40 @@ e.neighbors = [d, f, a];
 /**
  * 深度查询
  * @param {Object} origin 图
- * @param {String} value 查询值
- * @param {Array} history 已判断后的记录
+ * @param {String} value 目标值
+ * @param {Array} history 记录
  * @returns {Boolean} 返回值为布尔值
  */
 function deepSearch(origin, value, history) {
-    history = history || [];//兼容未传入值或搜索的记录
-    if (history.includes(origin)) return -1;//所有节点都已搜索，未找到
-    if (origin.value === value) return 1; //当前节点就是要搜索的目标
-    history.push(origin);//记录一下已查过的节点
-    for (var i = 0; i < origin.neighbors.length; i++) {
-        //诶个查询搜索 找到就退出搜索
+    history = history || [];//未传入值或搜索的记录
+    if (history.includes(origin)) return -1;//找不到
+    if (origin.value === value) return 1; //找到了
+    history.push(origin);//记录
+    for (var i = 0; i < origin.neighbors.length; ++i) {
+        //找到了
         if (deepSearch(origin.neighbors[i], value, history) === 1) return 1;
     }
-    return -1 //全部都看完了，都没找到
+    return -1 //全部都没找到
+}
+
+/**
+ * 广度搜索
+ * @param {Array} origin 图
+ * @param {String} value 目标值
+ * @param {Array} history 记录
+ * @returns 返回值
+ */
+function breadthSearch(origin, value, history) {
+    history = history || [];//记录
+    var ArrNum = [];
+    if (!origin.length) return -1;//找不到
+    for (var i = 0; i < origin.length; ++i) {
+        if (origin[i].value === value) return 1; //找到了
+        if (history.includes(origin[i])) continue; //记录里有了
+        history.push(origin[i]);//记录
+        for (var j = 0; j < origin[i].neighbors.length; ++j) {//看邻居有没有
+            ArrNum.push(origin[i].neighbors[j]);
+        }
+    }
+    return breadthSearch(ArrNum, value, history);
 }
