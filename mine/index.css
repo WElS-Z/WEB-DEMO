@@ -1,0 +1,41 @@
+.buttonAll{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.buttonAll button{
+    border-radius : 3px ;
+    border: none;
+    background-color: rgb(241, 241, 241); 
+    cursor: pointer;
+}
+.buttonAll .active, .buttonAll button:hover{
+    background-color:rgb(230, 230, 230);
+    color: rgb(252, 0, 0);
+}
+table{
+    border-spacing: 1px;
+    background-color: rgb(201, 201, 201);
+    margin:0 auto;
+}
+td{
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-color:#fff #a1a1a1 #a1a1a1 #fff;
+    background-color: rgb(214, 214, 214);
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+}
+.info{
+    margin-top: 20px;
+    text-align: center;
+}
+.mine{
+    background: url(./images/mine.jpeg) #f00 no-repeat center;
+    background-size: 20px;
+}
+.falg{
+    background: url(./images/falg.jpeg) #0f0 no-repeat center;
+}
